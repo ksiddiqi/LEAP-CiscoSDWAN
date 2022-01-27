@@ -528,11 +528,11 @@
 <td>100</td>
 </tr>
 <tr>
-<td>CL-Branch1</td>
+<td>Branch1</td>
 <td>300</td>
 </tr>
 <tr>
-<td>CL-Branch2</td>
+<td>Branch2</td>
 <td>400</td>
 </tr>
 </tbody>
@@ -704,7 +704,7 @@
 control-policy Hub-Spoke
 sequence 1
  match route
-  site-list CL-Branch2
+  site-list Branch2
  !
  action accept
   set
@@ -714,7 +714,7 @@ sequence 1
 !
 sequence 11
  match route
-  site-list CL-Branch1
+  site-list Branch1
  !
  action accept
   set
@@ -728,10 +728,10 @@ default-action accept
 site-list AllBranches
 site-id 300-499 
 !
-site-list CL-Branch1
+site-list Branch1
 site-id 300 
 !
-site-list CL-Branch2
+site-list Branch2
 site-id 400 
 !
 tloc-list Data-Center
@@ -740,10 +740,10 @@ tloc 10.1.0.1 color private1 encap ipsec
 !
 !
 !
-site-list CL-Branch1
+site-list Branch1
 control-policy Hub-Spoke out
 !
-site-list CL-Branch2
+site-list Branch2
 control-policy Hub-Spoke out
 !
 !
