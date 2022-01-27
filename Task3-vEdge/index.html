@@ -707,6 +707,12 @@ show certificate installed
   !
  !
 !
+omp
+ no shutdown
+ ecmp-limit       8
+ graceful-restart
+ advertise connected
+ advertise static
 !
 vpn 0
  interface ge0/0
@@ -948,7 +954,12 @@ vpn 0
   !
  !
 !
-
+omp
+ no shutdown
+ ecmp-limit       8
+ graceful-restart
+ advertise connected
+ advertise static
 !
 vpn 0
  interface ge0/0
@@ -1186,6 +1197,12 @@ vpn 0
   !
  !
 !
+omp
+ no shutdown
+ ecmp-limit       8
+ graceful-restart
+ advertise connected
+ advertise static
 !
 vpn 0
  interface ge0/0
