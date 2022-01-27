@@ -534,6 +534,109 @@ vpn 0
 <p>You may also execute <code>show run</code> command to view the full configuration of this vEdge</p>
 </li>
 <li>
+<p>Log on to the <strong>vManage</strong> GUI using a web browser (if not already open) and use credentials of <code>admin</code> and <code>admin</code> for authentication:</p>
+</li>
+</ul>
+<pre><code>https://198.18.1.10
+</code></pre>
+<ul>
+<li>
+<p>On the <strong>vManage GUI</strong>, navigate to <strong>Configuration &gt;  Devices &gt; WAN Edge List</strong>.  Here you will see all WAN Edge devices with their respective Chassis Number. Select and vEdge-Cloud and generate bootstrrap configs as mentioned in step below. </p>
+<p><img alt="WAN Edge List" src="../pics/t3-vmanage-vedge-br2.png" /></p>
+</li>
+<li>
+<p>Then <strong>Click</strong> the three dots <strong><code>...</code></strong> on the right side of this vEdge (with Chassis Number of ddd801b2-8cbe-4394-abd1-3b71e39886e3) and  <strong>Click</strong>  <code>Generate Bootstrap Configuration</code> as shown in the below screenshot:</p>
+<p><img alt="Generate Bootstrap" src="../pics/t3-br2-cert-otp.png" /></p>
+</li>
+<li>
+<p>Select <strong>Cloud-Init</strong> on <strong>Generate Bootstrap Configuration</strong> pop-up window:</p>
+<p><img alt="Generate Bootstrap" src="../pics/t3-br2-CloudInit.png" /></p>
+</li>
+<li>
+<p>This will result in generation of a new One-Time-Password (OTP) as shown in below screenshot.  <strong>Copy</strong>  the <code>otp</code> and <code>uuid</code> fields from this pop-up window.  </p>
+<p><img alt="OTP" src="../pics/t3-br2-cert-otp-data.png" /></p>
+<table>
+<thead>
+<tr>
+<th align="left">Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">A new OTP is generated everytime. Hence the OTP data on your pop-up window will not be the same as above screenshot</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>Click</strong> on the <code>Close</code> button of this pop-up window to proceed further</p>
+</li>
+<li>
+<p>On the <strong>SSH</strong> connection to vEdge: <strong>execute</strong> the below command:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">In below command you must <strong>replace</strong> the <code>chassis-number</code> and <code>{otp}</code> with the values that you generated in previous step of <code>Generate Bootstrap Configuration</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<pre><code>request vedge-cloud activate chassis-number {chassis-number} token {otp}
+</code></pre>
+<p>Below screenshot gives an example of executing this command:</p>
+<p><img alt="OTP" src="../pics/t3-br2-requestcertcli.png" /></p>
+<ul>
+<li>On the <strong>SSH</strong> connection to vEdge, <strong>execute</strong> the below command to verify that a valid serial number is generated </li>
+</ul>
+<pre><code>show certificate serial
+</code></pre>
+<p>Below screenshot shows the output of above command confirming that a valid serial is now installed on vEdge:</p>
+<p><img alt="show cert" src="../pics/t3-br2-show-cert.png" /></p>
+<table>
+<thead>
+<tr>
+<th align="left">Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">If the output of above command does not show any serial number, or it gives a message such as '<em>Certificate not yet installed ... giving up</em>' then you can re-enter the above <code>request vedge-cloud activate chassis-number ddd801b2-8cbe-4394-abd1-3b71e39886e3 token {otp}</code> command</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>On the <strong>SSH</strong> connection to vEdge: <strong>execute</strong> the below commands to verify control plane connectivity of this vEdge to the controllers (vManage, vSmart)</li>
+</ul>
+<pre><code>show control connections
+</code></pre>
+<p>Below screenshot shows the output of above command:</p>
+<p><img alt="show control" src="../pics/t3-br2-show-control-connections.png" /></p>
+<p>From the above output you can:</p>
+<ul>
+<li>confirm that <strong>State</strong> of control plane connection to vManage is <strong>up</strong></li>
+<li>confirm that <strong>State</strong> of control plane connections to vSmart are <strong>up</strong></li>
+<li>
+<p>confirm that valid Private, Public, System IP addresses, Protcols etc of vSmart, vManage and vEdge are shown</p>
+<table>
+<thead>
+<tr>
+<th align="left">Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">If the <strong>State</strong> of any control connection is <strong>down</strong>, then you can try to issue <code>clear control connections</code> command.  And check the status again.  If still there are issues then kindly check with Lab instructor</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
 <p><strong>Run</strong> the below <strong>commands</strong> to verify that certificate has been installed and view the details of certificate respectively  </p>
 </li>
 </ul>
@@ -1169,9 +1272,9 @@ show run
       <div class="md-copyright">
   
   
-    Made for
+    Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Saudi Arabia LEAP Event 2022
+      Material for MkDocs
     </a>
   
 </div>
