@@ -286,6 +286,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#step-3-add-template-for-vsmart" class="md-nav__link">
+    Step 3: Add Template for vSmart
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -380,6 +387,13 @@
         <li class="md-nav__item">
   <a href="#step-3-adding-vedge-in-data-center-dc" class="md-nav__link">
     Step 3: Adding vEdge in Data Center (DC)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-add-template-for-vsmart" class="md-nav__link">
+    Step 3: Add Template for vSmart
   </a>
   
 </li>
@@ -1325,6 +1339,71 @@ vpn 512
 show ip route
 show control connections
 show run
+</code></pre>
+<h2 id="step-3-add-template-for-vsmart">Step 3: Add Template for vSmart</h2>
+<p>Follow the same procedure and create a template for vSamrt. Use vSmart from the drop down menu of Device Model when creating CLI template. Use the following configs.</p>
+<pre><code>system
+ host-name             vSmart01
+ system-ip             172.16.100.1
+ site-id               100
+ admin-tech-on-failure
+ sp-organization-name  MEA_KSA_LABS
+ organization-name     MEA_KSA_LABS
+ vbond vbond.cisco.com
+ aaa
+  auth-order local radius tacacs
+  usergroup basic
+   task system read write
+   task interface read write
+  !
+  usergroup netadmin
+  !
+  usergroup operator
+   task system read
+   task interface read
+   task policy read
+   task routing read
+   task security read
+  !
+  usergroup tenantadmin
+  !
+  user admin
+   password $6$qojU1QitX6fse4YT$PkiKYqrSfLZJ4fmEnvPIkUFNRBQJQPxwqWdJYkQxZYodIHyeE0j3Pe7.bOzvYKNZp2dl0X5jwQ6VcWSmeWweU/
+  !
+ !
+ logging
+  disk
+   enable
+  !
+ !
+!
+omp
+ no shutdown
+ graceful-restart
+!
+vpn 0
+ host vbond.cisco.com ip 10.0.0.10
+ interface eth1
+  ip address 10.100.100.1/30
+  tunnel-interface
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   allow-service sshd
+   allow-service netconf
+   no allow-service ntp
+   no allow-service stun
+  !
+  no shutdown
+ !
+ ip route 0.0.0.0/0 10.100.100.2
+!
+vpn 512
+ interface eth0
+  ip address 198.18.134.51/18
+  no shutdown
+ !
+ ip route 0.0.0.0/0 198.18.128.1
 </code></pre>
 
               
