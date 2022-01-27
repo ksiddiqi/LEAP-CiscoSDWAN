@@ -443,19 +443,19 @@
 <li>Then you can <strong>add</strong>  (copy &amp; paste will work) the below configuration at the end of the exiting template,</li>
 <li>Do not make any other changes to existing configurations in this template<pre><code>vpn 10
  name AppVPN
- interface Loopback10
+ interface loopback10
   ip address 10.102.10.10/32
   no shutdown
 !
 vpn 20
  name BusinessVPN
- interface Loopback20
+ interface loopback20
   ip address 10.102.20.10/32
   no shutdown
 !
 vpn 30
  name MarketingVPN
- interface Loopback30
+ interface loopback30
   ip address 10.102.30.10/32
   no shutdown
 </code></pre>
@@ -594,9 +594,9 @@ show omp routes vpn 10
       <div class="md-copyright">
   
   
-    Made for
+    Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Saudi Arabia LEAP Event 2022
+      Material for MkDocs
     </a>
   
 </div>
