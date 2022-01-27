@@ -421,7 +421,7 @@
 <p><img alt="Mputty" src="../pics/t3-mputty.png" /></p>
 </li>
 <li>
-<p>Using <strong>MTPutty</strong> on your Remote Desktop session, initiate a <strong>SSH</strong> session to the BR1-vEdge with <strong>IP address</strong> of <strong>198.18.134.105</strong> this vEdge (<strong>BR1-vEdge</strong>).  You can use credentials of <code>admin</code> and <code>admin</code> for  authentication.</p>
+<p>Using <strong>MTPutty</strong> on your Remote Desktop session, initiate a <strong>SSH</strong> session to the BR1-vEdge with <strong>IP address</strong> of <strong>198.18.134.46</strong> this vEdge (<strong>BR1-vEdge01</strong>).  You can use credentials of <code>admin</code> and <code>admin</code> for  authentication.</p>
 <ul>
 <li>If prompted for "Putty Security Alert" then Trust the host by clicking "Yes" on dialog box.  </li>
 <li>
@@ -442,15 +442,8 @@
 </ul>
 </li>
 <li>
-<p>On the <strong>SSH</strong> connection, <strong>execute</strong> the below <strong>command</strong> to view the Out-of-Band (OOB) management VPN 512 related configurations on this vEdge: </p>
+<p>Apply the below configs for vEge Branch-1</p>
 </li>
-</ul>
-<pre><code>show run vpn 512
-</code></pre>
-<p>Below screenshot shows VPN 512 configs:</p>
-<p><img alt="VPN 512" src="../pics/t3-br1-showvpn512.png" /></p>
-<ul>
-<li>Apply the below configs for vEge Branch-1</li>
 </ul>
 <pre><code>system
  host-name               BR1-vEdge01
@@ -512,13 +505,6 @@ vpn 0
 </ul>
 <pre><code>show run system
 </code></pre>
-<p>As shown in the partial output in the below screenshot, the vEdge has been pre-configured with below system related configurations:
-*  hostname
-*  system-id 
-*  site-id
-*  organization name
-*  vBond DNS name of <code>vbond.cisco.com</code> </p>
-<p><img alt="Mputty" src="../pics/t3-br1-showsystem.png" /></p>
 <ul>
 <li><strong>Execute</strong> the below <strong>command</strong> to see the configuration related to WAN connections or Transport connections on this vEdge.  In Cisco SD-WAN, VPN 0 is allocated for Transport/WAN links:</li>
 </ul>
