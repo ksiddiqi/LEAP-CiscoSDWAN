@@ -1,0 +1,900 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Cisco SD-WAN Lab">
+      
+      
+        <meta name="author" content="CX Team">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.7">
+    
+    
+      
+        <title>Task 2 Control Plane - LEAP 2022 - Cisco SD-WAN Lab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#exploring-sdwan-control-plane-vmanage-gui-vsmart-and-vbond" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LEAP 2022 - Cisco SD-WAN Lab" class="md-header__button md-logo" aria-label="LEAP 2022 - Cisco SD-WAN Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LEAP 2022 - Cisco SD-WAN Lab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task 2 Control Plane
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LEAP 2022 - Cisco SD-WAN Lab" class="md-nav__button md-logo" aria-label="LEAP 2022 - Cisco SD-WAN Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    LEAP 2022 - Cisco SD-WAN Lab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Topology/" class="md-nav__link">
+        Topology
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task1-Connect/" class="md-nav__link">
+        Task 1 Remote Connection
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Task 2 Control Plane
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Task 2 Control Plane
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-exploring-vmanage-gui" class="md-nav__link">
+    Step 1: Exploring vManage GUI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-prerequisite-task-change-wan-edge-certificate-authorization-method" class="md-nav__link">
+    Step 2: Prerequisite Task - Change WAN Edge Certificate Authorization Method
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-changing-vbond-ip-address-on-vmanage" class="md-nav__link">
+    Step 3: Changing vBond IP Address on vManage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-changing-vbond-ip-address-on-vsmart-and-exploring-vsmart" class="md-nav__link">
+    Step 4: Changing vBond IP Address on vSmart and Exploring vSmart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-exploring-vbond" class="md-nav__link">
+    Step 5: Exploring vBond
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task3-vEdge/" class="md-nav__link">
+        Task 3 vEdge on internal networks
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task4-Full-Mesh/" class="md-nav__link">
+        Task 4 Full-Mesh Data Plane on internal networks
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task5-VPN%20creations/" class="md-nav__link">
+        Task 5 Establish VPN connectivity on Fabric
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task8-HubnSpoke_VPN20.md" class="md-nav__link">
+        Task 6 Task 8 Hub & Spoke Topology
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-exploring-vmanage-gui" class="md-nav__link">
+    Step 1: Exploring vManage GUI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-prerequisite-task-change-wan-edge-certificate-authorization-method" class="md-nav__link">
+    Step 2: Prerequisite Task - Change WAN Edge Certificate Authorization Method
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-changing-vbond-ip-address-on-vmanage" class="md-nav__link">
+    Step 3: Changing vBond IP Address on vManage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-changing-vbond-ip-address-on-vsmart-and-exploring-vsmart" class="md-nav__link">
+    Step 4: Changing vBond IP Address on vSmart and Exploring vSmart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-exploring-vbond" class="md-nav__link">
+    Step 5: Exploring vBond
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<h1 id="exploring-sdwan-control-plane-vmanage-gui-vsmart-and-vbond">Exploring SDWAN Control Plane (vManage GUI, vSmart and vBond)</h1>
+<p>This task will walk through the steps to explore vManage GUI, vBond and VSmart configurations </p>
+<p><strong>Pre-requisite:</strong>  Remote Desktop (RDP) session has to be established on RDP client already. You will use RDP client to connect to SDWAN controllers.  If RDP session is not operational then please complete the previous Tasks first.</p>
+<h2 id="step-1-exploring-vmanage-gui">Step 1: Exploring vManage GUI</h2>
+<p>In this step we will explore vManage GUI. vManage is a centralized network management system that provides a GUI interface to easily collect data from managed devices, present statistics, host troubleshooting tools, and manage configurations for all devices, templates, and policies.</p>
+<ul>
+<li>
+<p>Once you connect to the remote workstation with Remote Desktop (RDP) client; then run Chrome by clicking its shortcut on the Desktop</p>
+</li>
+<li>
+<p>You can access the vManage on the web browser by accessing below URL, and use credentials of <code>admin</code> and <code>admin</code>:</p>
+</li>
+</ul>
+<pre><code>https://198.18.134.50
+</code></pre>
+<p>Note: you may also log into vManage on Chrome by clicking its shortcut on the Desktop to access vManage GUI as shown below:</p>
+<p><img alt="vManage" src="../pics/t2-vManage_Access2vManage.png" /></p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">If <code>admin/admin</code> credentials do not work then you may try using <code>cisco/cisco</code> or <code>cisco1/cisco1</code></td>
+</tr>
+</tbody>
+</table>
+<p>Below URL shows the logon screen of vManage:</p>
+<p><img alt="vManage" src="../pics/t2-vManage_Login.png" /></p>
+<p>The vManage dashboard will be displayed. The dashboard provides a quick summary of the network. At the top, a status indicating reachability will be displayed for any vSmart controllers, vEdge routers, and vBond orchestrators that are installed and have been added to vManage. Here, at a glance, you can view the health of the entire network including the operational state of any device, total number of reboots and crashes, and the state of all controller certificates. This visibility into the network eases the task of managing the SDWAN devices. </p>
+<p>The number of controllers will be shown with a green up arrow (indicating reachable), or a red down arrow (indicating unreachable).</p>
+<p><img alt="vManage" src="../pics/t2-vManage_Dashboard.png" /></p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">On the next steps, we will verify the controllers are all showing up before moving on to the next task.</td>
+</tr>
+</tbody>
+</table>
+<p>The menu is located to the left of the Dashboard screen. The following lists each menu and sub-menu item and provides a brief description.</p>
+<ul>
+<li><strong>Monitor</strong><ul>
+<li><strong>Geography:</strong> A map view of the entire network and displays the geographic location of the devices in the network.   </li>
+<li><strong>Network:</strong> An inventory of all SDWAN devices in the network along with detailed information on each device.</li>
+<li><strong>Alarms:</strong> Details on alarms generated by all SDWAN devices in the network.</li>
+<li><strong>Events:</strong> Details on events generated by all SDWAN devices in the network.</li>
+<li><strong>Audit Log:</strong> An audit log of all activities on SDWAN devices.</li>
+<li><strong>ACL Log:</strong> System log messages related to access lists (ACLs) configured on a vEdge router.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_Monitor.png" /> </p>
+<ul>
+<li><strong>Configuration</strong><ul>
+<li><strong>Devices:</strong> Add or delete devices from the overlay network.</li>
+<li><strong>Certificates:</strong> Manage certificates and authenticate Viptela devices in the overlay network.</li>
+<li><strong>Templates:</strong> Create configuration templates for a set of Viptela devices.</li>
+<li><strong>Policy:</strong> Create common policies for a set of vSmart controllers.</li>
+<li><strong>Security:</strong> Create and activate zone-based firewalls vEdge routers</li>
+<li><strong>Cloud onRamp for SaaS:</strong> Optimize access to cloud applications from Direct Internet Access (DIA) nodes in the overlay network.</li>
+<li><strong>Cloud onRamp for IaaS:</strong> Extends SDWAN overlay network into public cloud instances. Create virtual private cloud (VPC) instances for hosting vEdge Cloud routers in the public internet.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_Configuration.png" /></p>
+<ul>
+<li><strong>Tools</strong><ul>
+<li><strong>SSH Terminal:</strong> Establish an SSH session to a SDWAN device.</li>
+<li><strong>Rediscover Network:</strong> Locate new devices in the overlay network and synchronize them with the vManage NMS.</li>
+<li><strong>Operational Commands:</strong> Run two or more operational commands as a single command.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_Tools.png" /></p>
+<ul>
+<li><strong>Maintenance</strong><ul>
+<li><strong>Software Repository:</strong></li>
+<li><strong>Software Upgrade:</strong> Download new software images and upgrade the software image running on SDWAN devices.</li>
+<li><strong>Device Reboot:</strong> Reboot one or more SDWAN devices.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_Maintenance.png" /></p>
+<ul>
+<li><strong>Administration</strong><ul>
+<li><strong>Settings:</strong> Configure organization name and certificate authorization settings.</li>
+<li><strong>Manage Users:</strong> Add, edit, or delete users and user groups from the vManage NMS.</li>
+<li><strong>Cluster Management:</strong> Create and manage a vManage NMS cluster.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_Administration.png" /></p>
+<ul>
+<li><strong>vAnalytics</strong><ul>
+<li><strong>Launch vAnalytics:</strong> View, at a glance, the performance and availability of the Viptela overlay network, including metrics for carriers, tunnels, and applications.</li>
+</ul>
+</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_vAnalytics.png" /></p>
+<h2 id="step-2-prerequisite-task-change-wan-edge-certificate-authorization-method">Step 2: Prerequisite Task - Change WAN Edge Certificate Authorization Method</h2>
+<ul>
+<li>Go to Administration &gt; Settings</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_Administration.png" /></p>
+<ul>
+<li>Go to <strong>WAN Edge Cloud Certificate Authorization</strong> and click <strong>Edit</strong></li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_Cert-Auth-1.png" /></p>
+<ul>
+<li>Select <strong>Automated (vManage - Signed recomended)</strong> and <strong>Save</strong></li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_Cert-Auth-2.png" /></p>
+<h2 id="step-3-changing-vbond-ip-address-on-vmanage">Step 3: Changing vBond IP Address on vManage</h2>
+<p>In this step, you will change vBond IP Address on vManage. </p>
+<ul>
+<li>
+<p>Launch <strong>Mputty</strong> application from the Remote desktop by clicking on it's icon on the desktop:</p>
+<p><img alt="Mputty" src="../pics/t3-mputty.png" /></p>
+</li>
+<li>
+<p>Using <strong>MPutty</strong> on your Remote Desktop session, initiate a <strong>SSH</strong> session to the <strong>vManage</strong> with <strong>IP address</strong> of <strong>198.18.134.50</strong>.  You can use credentials of <code>admin</code> and <code>admin</code> for  authentication.</p>
+<ul>
+<li>If prompted for "Putty Security Alert" then Trust the host by clicking "Yes" on dialog box.  </li>
+<li>The <strong>SSH credentials</strong> (username and password) are <code>admin</code> and <code>admin</code> respectively</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">If <code>admin/admin</code> credentials do not work then you may try using <code>cisco/cisco</code> or <code>cisco1/cisco1</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>On the <strong>SSH</strong> connection, <strong>execute</strong> below <strong>command</strong> to view the <code>VPN 0</code> related configurations on vManage: <pre><code>show run vpn 0
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows <code>VPN 0</code> configuration and pre-configured <strong>vBond IP address</strong> as <strong>128.107.66.118</strong>.</p>
+<p><img alt="vManage" src="../pics/t2-vManage_vBondIP.png" /></p>
+<p>Reconfigure vBond IP address from vManage by executing below command;</p>
+<pre><code>config t
+vpn 0
+ host vbond.cisco.com ip {vbond-public-ip}
+commit and-quit
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Curly brackets with <code>{vbond-public-ip}</code> needs to be replaced by IP address of 10.0.0.10</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="vManage" src="../pics/t2-vManage_vBondIP2.png" /></p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Above screenshot shows<code>{vbond-public-ip}</code> as <strong>128.107.66.118</strong> with the purpose of showing an example only, please use the vBond IP 10.0.0.10</td>
+</tr>
+</tbody>
+</table>
+<p>Navigate to Dashboard and check the vBond orchestrators' status is updated with a green up arrow (indicating reachable).</p>
+<p><img alt="vManage" src="../pics/t2-vManage_vBondIP3.png" /></p>
+<h2 id="step-4-changing-vbond-ip-address-on-vsmart-and-exploring-vsmart">Step 4: Changing vBond IP Address on vSmart and Exploring vSmart</h2>
+<p>In this step we will update vBond IP address on vSmart .</p>
+<ul>
+<li>Launch <strong>Mputty</strong> application from the Remote desktop by clicking on it's icon on the desktop to initiate a <strong>SSH</strong> session to the <strong>vSmart</strong>.  You can use credentials of <code>admin</code> and <code>admin</code> for  authentication.</li>
+</ul>
+<p><img alt="Mputty" src="../pics/t3-mputty.png" /></p>
+<ul>
+<li>If prompted for "Putty Security Alert" then Trust the host by clicking "Yes" on dialog box.  </li>
+<li>
+<p>The <strong>SSH credentials</strong> (username and password) are <code>admin</code> and <code>admin</code> respectively</p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">If <code>admin/admin</code> credentials do not work then you may try using <code>cisco/cisco</code> or <code>cisco1/cisco1</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>On the <strong>SSH</strong> connection, <strong>execute</strong> below <strong>command</strong> to view the <code>VPN 0</code> related configurations on vSmart: </p>
+<pre><code>show run vpn 0
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows <code>VPN 0</code> configuration and pre-configured <strong>vBond IP address</strong> as <strong>128.107.66.118</strong>.</p>
+<p><img alt="vManage" src="../pics/t2-vManage_vSmart.png" /></p>
+<p>Reconfigure vBond IP address from vManage by executing below command;</p>
+<pre><code>    config t
+    vpn 0
+     host vbond.cisco.com ip {vbond-public-ip}}
+    commit and-quit
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Curly brackets with <code>{vbond-public-ip}</code> needs to be replaced by vBond IP address of 10.0.0.10</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="vManage" src="../pics/t2-vManage_vSmart2.png" /></p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Above screenshot shows <code>{vbond-public-ip}}</code> as <strong>128.107.222.5</strong> with the purpose of showing an example only, the IP address of vbond for your pod is 10.0.0.10</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Navigate to Dashboard and check the vBond orchestrators' status is updated with a green up arrow (indicating reachable).</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_vSmart3.png" /></p>
+<ul>
+<li>
+<p>On the <strong>Mputty</strong> client with <strong>SSH</strong> session to <code>vSmart</code> verify that template is successfully attached by running below <strong>command</strong>:</p>
+<pre><code>show system status
+</code></pre>
+</li>
+<li>
+<p>The output of above command should show that vManage is now centrally maintained by vManage and also provides the name of template attached as shown below screenshot:</p>
+<ul>
+<li><code>vManaged: true</code></li>
+<li><code>Configuration template: CL-vSmart-NATvbond</code></li>
+</ul>
+</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_vSmart4.png" /></p>
+<ul>
+<li><strong>Execute</strong> the below <strong>command</strong> to verify that system related configurations on vSmart: <pre><code>show run system
+</code></pre>
+</li>
+</ul>
+<p>As shown in the partial output in the below screenshot, the vSmart has been pre-configured with below system related configurations:
+    *  hostname
+    *  system-ip 
+    *  site-id
+    *  organization name
+    *  vBond DNS name of <code>vbond.cisco.com</code> </p>
+<p><img alt="vManage" src="../pics/t2-vManage_vSmart5.png" /> </p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">A static DNS entry for the hostname <strong><em>vbond.cisco.com</em></strong> has been configured under <code>vpn 0</code> in previous steps (it will be visible in subsequent bullet)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Execute</strong> the below <strong>command</strong> to see the configuration related to <code>vpn 0</code>:<pre><code>show run vpn 0
+</code></pre>
+</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_vSmart6.png" /> </p>
+<ul>
+<li>
+<p>You may also execute <code>show run</code> command to view the full configuration of vSmart</p>
+</li>
+<li>
+<p><strong>Run</strong> the below <strong>commands</strong> to verify that certificate has been installed and view the details of certificate respectively  </p>
+<pre><code>show certificate serial
+show certificate installed
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the partial output of the above command. </p>
+<p><img alt="vManage" src="../pics/t2-vManage_vSmart7.png" /> </p>
+<ul>
+<li><strong>Run</strong> the below <strong>command</strong> to see the list of control connections of vSmart<pre><code>show control connections
+</code></pre>
+</li>
+</ul>
+<p><img alt="vManage" src="../pics/t2-vManage_vSmart8.png" /> </p>
+<p>From the above output you can:</p>
+<ul>
+<li>confirm that <strong>State</strong> of control plane connection to vManage is <strong>up</strong></li>
+<li>confirm that <strong>State</strong> of control plane connections to vBond are <strong>up</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note</strong>:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">If the <strong>State</strong> of any control connection is <strong>down</strong>, then you can execute <code>clear control connections</code> command.  And check the control status again by executing <code>show control connections</code> command multiple times. If still there are issues then kindly check with Lab instructor.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note</strong>:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Above screenshot shows the Public IP address of the vBond for a reference pod.  It will be different for your pod.  The Private IP addresses for vManage and vSmart should be same.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="step-5-exploring-vbond">Step 5: Exploring vBond</h2>
+<ul>
+<li>
+<p>Launch <strong>Mputty</strong> application from the Remote desktop by clicking on it's icon on the desktop to initiate a <strong>SSH</strong> session to the <strong>vBond</strong>.  You can use credentials of <code>admin</code> and <code>admin</code> for  authentication.</p>
+<p><img alt="Mputty" src="../pics/t3-mputty.png" /></p>
+<ul>
+<li>If prompted for "Putty Security Alert" then Trust the host by clicking "Yes" on dialog box.  </li>
+<li>The <strong>SSH credentials</strong> (username and password) are <code>admin</code> and <code>admin</code> respectively</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note</strong>:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">If <code>admin/admin</code> credentials do not work then you may try using <code>cisco/cisco</code> or <code>cisco1/cisco1</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>On the <strong>SSH</strong> connection, <strong>execute</strong> the below <strong>command</strong> to verify that system related configurations on vSmart: <pre><code>show run system
+</code></pre>
+</li>
+</ul>
+<p>As shown in the partial output in the below screenshot, the vSmart has been pre-configured with below system related configurations:
+    *  hostname
+    *  system-ip 
+    *  organization name
+    *  vBond private IP of <code>198.18.1.11</code> </p>
+<p><img alt="Mputty" src="../pics/t2-vManage_vBond.png" />    </p>
+<ul>
+<li>
+<p>You may also execute <code>show run</code> command to view the full configuration of vBond</p>
+</li>
+<li>
+<p><strong>Run</strong> the below <strong>commands</strong> to verify that certificate has been installed and view the details of certificate respectively  </p>
+<pre><code>show certificate serial
+show certificate installed
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the partial output of the above command. </p>
+<p><img alt="Mputty" src="../pics/t2-vManage_vBond2.png" />       </p>
+<hr />
+<p>This concludes the process to explore SDWAN Control Plane (vManage GUI, vSmart and vBond) and change vBond IP address on vManage and vSmart.</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../Task1-Connect/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Task 1 Remote Connection" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Task 1 Remote Connection
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../Task3-vEdge/" class="md-footer__link md-footer__link--next" aria-label="Next: Task 3 vEdge on internal networks" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Task 3 vEdge on internal networks
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.01de222e.min.js"></script>
+      
+    
+  </body>
+</html>

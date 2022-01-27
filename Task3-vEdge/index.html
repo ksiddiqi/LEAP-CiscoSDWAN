@@ -1,0 +1,1208 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Cisco SD-WAN Lab">
+      
+      
+        <meta name="author" content="CX Team">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.7">
+    
+    
+      
+        <title>Task 3 vEdge on internal networks - LEAP 2022 - Cisco SD-WAN Lab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#step-1-configure-vedge-in-branch-1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LEAP 2022 - Cisco SD-WAN Lab" class="md-header__button md-logo" aria-label="LEAP 2022 - Cisco SD-WAN Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LEAP 2022 - Cisco SD-WAN Lab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task 3 vEdge on internal networks
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LEAP 2022 - Cisco SD-WAN Lab" class="md-nav__button md-logo" aria-label="LEAP 2022 - Cisco SD-WAN Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    LEAP 2022 - Cisco SD-WAN Lab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Topology/" class="md-nav__link">
+        Topology
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task1-Connect/" class="md-nav__link">
+        Task 1 Remote Connection
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task2-Exploring%20Control%20Plane/" class="md-nav__link">
+        Task 2 Control Plane
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Task 3 vEdge on internal networks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Task 3 vEdge on internal networks
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-configure-vedge-in-branch-1" class="md-nav__link">
+    Step 1: Configure vEdge in Branch-1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-configure-vedge-in-branch-2" class="md-nav__link">
+    Step 2: Configure vEdge in Branch-2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-adding-vedge-in-data-center-dc" class="md-nav__link">
+    Step 3: Adding vEdge in Data Center (DC)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task4-Full-Mesh/" class="md-nav__link">
+        Task 4 Full-Mesh Data Plane on internal networks
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task5-VPN%20creations/" class="md-nav__link">
+        Task 5 Establish VPN connectivity on Fabric
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Task8-HubnSpoke_VPN20.md" class="md-nav__link">
+        Task 6 Task 8 Hub & Spoke Topology
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-configure-vedge-in-branch-1" class="md-nav__link">
+    Step 1: Configure vEdge in Branch-1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-configure-vedge-in-branch-2" class="md-nav__link">
+    Step 2: Configure vEdge in Branch-2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-adding-vedge-in-data-center-dc" class="md-nav__link">
+    Step 3: Adding vEdge in Data Center (DC)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+  <h1>Task 3 vEdge on internal networks</h1>
+
+<p>This task will walk through the steps to add vEdges to the SD-WAN environment.  </p>
+<p><strong>Pre-requisite:</strong>  SDWAN controllers must be fully operational.  If those are not installed (or operational) then please complete the previous Tasks first.</p>
+<h2 id="step-1-configure-vedge-in-branch-1">Step 1: Configure vEdge in Branch-1</h2>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Pictures added to the Lab guide is reference only. Actual IPs will be different in the POD</td>
+</tr>
+</tbody>
+</table>
+<p>In this step we will SSH to the vEdge in Branch1 (BR1) and verify that it has established connection to the Control Plane.</p>
+<ul>
+<li>
+<p>Launch <strong>Mputty</strong> application from the Remote desktop by clicking on it's icon on the desktop:</p>
+<p><img alt="Mputty" src="../pics/t3-mputty.png" /></p>
+</li>
+<li>
+<p>Using <strong>MTPutty</strong> on your Remote Desktop session, initiate a <strong>SSH</strong> session to the BR1-vEdge with <strong>IP address</strong> of <strong>198.18.134.105</strong> this vEdge (<strong>BR1-vEdge</strong>).  You can use credentials of <code>admin</code> and <code>admin</code> for  authentication.</p>
+<ul>
+<li>If prompted for "Putty Security Alert" then Trust the host by clicking "Yes" on dialog box.  </li>
+<li>
+<p>The <strong>SSH credentials</strong> (username and password) are <code>admin</code> and <code>admin</code> respectively</p>
+<table>
+<thead>
+<tr>
+<th align="left">Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">If <code>admin/admin</code> credentials do not work then you may try using <code>cisco/cisco</code> or <code>cisco1/cisco1</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p>On the <strong>SSH</strong> connection, <strong>execute</strong> the below <strong>command</strong> to view the Out-of-Band (OOB) management VPN 512 related configurations on this vEdge: </p>
+</li>
+</ul>
+<pre><code>show run vpn 512
+</code></pre>
+<p>Below screenshot shows VPN 512 configs:</p>
+<p><img alt="VPN 512" src="../pics/t3-br1-showvpn512.png" /></p>
+<ul>
+<li>Apply the below configs for vEge Branch-1</li>
+</ul>
+<pre><code>system
+ host-name               BR1-vEdge01
+ system-ip               172.16.102.1
+ site-id                 101
+ admin-tech-on-failure
+ no route-consistency-check
+ sp-organization-name    MEA_KSA_LABS
+ organization-name       MEA_KSA_LABS
+ upgrade-confirm         15
+ vbond 10.0.0.10
+!
+vpn 0
+ interface ge0/0
+  ip address 10.100.101.1/30
+  tunnel-interface
+   encapsulation ipsec
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+ !
+ interface ge0/1
+  ip address 10.100.101.5/30
+  tunnel-interface
+   encapsulation ipsec
+   color private1
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+  !
+  ip route 0.0.0.0/0 10.100.101.2
+  ip route 0.0.0.0/0 10.100.101.6
+</code></pre>
+<ul>
+<li>
+<p>Execute <strong>commit</strong></p>
+</li>
+<li>
+<p><strong>Execute</strong> the below <strong>command</strong> to verify that system related configurations on this vEdge: </p>
+</li>
+</ul>
+<pre><code>show run system
+</code></pre>
+<p>As shown in the partial output in the below screenshot, the vEdge has been pre-configured with below system related configurations:
+*  hostname
+*  system-id 
+*  site-id
+*  organization name
+*  vBond DNS name of <code>vbond.cisco.com</code> </p>
+<p><img alt="Mputty" src="../pics/t3-br1-showsystem.png" /></p>
+<ul>
+<li><strong>Execute</strong> the below <strong>command</strong> to see the configuration related to WAN connections or Transport connections on this vEdge.  In Cisco SD-WAN, VPN 0 is allocated for Transport/WAN links:</li>
+</ul>
+<pre><code>show run vpn 0 
+</code></pre>
+<p>Below screenshot shows the partial output of this command.  This command will confirm that:</p>
+<ul>
+<li>vEdge has two WAN links (under VPN 0) as per interface ge0/0 &amp;  ge0/1 configurations,</li>
+<li>default routes are configured for both links,</li>
+<li>Each WAN link is also configured with appropriate <code>color</code> tag:</li>
+</ul>
+<p><img alt="VPN 0" src="../pics/t3-br1-showvpn0.png" /></p>
+<table>
+<thead>
+<tr>
+<th align="left">Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">This <code>color</code> tag is used to set up the appropriate IPSec tunnels.   With restrict option, IPSec tunnels between vEdges that have MPLS color will be created.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>You may also execute <code>show run</code> command to view the full configuration of this vEdge</p>
+</li>
+<li>
+<p><strong>Run</strong> the below <strong>commands</strong> to verify that certificate has been installed and view the details of certificate respectively  </p>
+</li>
+</ul>
+<pre><code class="language-textfile">show certificate serial
+show certificate installed  
+</code></pre>
+<p>Below screenshot shows the partial output of the above command.  </p>
+<p><img alt="VPN 0" src="../pics/t3-br1-showcert.png" /></p>
+<ul>
+<li><strong>Run</strong> the below <strong>command</strong> to see the list of control connections of this vEdge to the Control Plane (vManage, vSmart)</li>
+</ul>
+<pre><code>show control connections
+</code></pre>
+<p>Below screenshot shows the output of this command.  Note it validates that vEdge has:</p>
+<ul>
+<li>Two (2) control connections established to vSmart Controller</li>
+<li>One (1) control connection established to vManage</li>
+</ul>
+<p><img alt="Control on vEdge" src="../pics/t3-br1-controlconnection.png" /></p>
+<p>In addition to option of configuring a vEdge using local CLI, centralized configuration/management of vEdges can be done from the vManage using "CLI Template" or "Feature Template".  </p>
+<ul>
+<li>Create a CLI template for Branch-1 vEdge.</li>
+<li>
+<p>On the vManage GUI, navigate to <strong>Configuration &gt; Templates</strong>.  Under <strong>Devices</strong> tab click <strong>Create Template</strong> and then select <strong>CLI Template</strong> as shown in the below screenshot:</p>
+<p><img alt="CLI Template" src="../pics/t3_clitemplate.png" /></p>
+</li>
+<li>
+<p>Next, from the <strong>Device Model</strong> dropdown menu select <code>vEdge-Cloud</code></p>
+</li>
+<li>Enter <strong>Template Name</strong> of <code>BR1-vEdge01</code></li>
+<li>Enter <strong>Description</strong> of <code>Branch-1 vEdge1 configs</code></li>
+<li>In the <strong>CLI Configuration</strong> section copy and paste the  below configs:</li>
+</ul>
+<pre><code>system
+ host-name               BR1-vEdge01
+ system-ip               172.16.102.1
+ site-id                 101
+ admin-tech-on-failure
+ no route-consistency-check
+ sp-organization-name    MEA_KSA_LABS
+ organization-name       MEA_KSA_LABS
+ upgrade-confirm         15
+ vbond 10.0.0.10
+!
+vpn 0
+ interface ge0/0
+  ip address 10.100.101.1/30
+  tunnel-interface
+   encapsulation ipsec
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+ !
+ interface ge0/1
+  ip address 10.100.101.5/30
+  tunnel-interface
+   encapsulation ipsec
+   color private1
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+ !
+ ip route 0.0.0.0/0 10.100.101.2
+ ip route 0.0.0.0/0 10.100.101.6
+!
+vpn 512
+ interface eth0
+  ip address 198.18.134.46/18
+  ipv6 dhcp-client
+  no shutdown
+ !
+ ip route 0.0.0.0/0 198.18.128.1
+!
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Note:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Pictures added to the Lab guide is showing branch-2 but the procedure is same for adding any vEdge to template</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>Next <strong>Click</strong> the <code>Add</code> button at the bottom of page as shown in the below screenshot:</p>
+<p><img alt="BR2 Template" src="../pics/t3-br2-clitemplate.png" /></p>
+</li>
+<li>
+<p>On the next screen, <strong>verify</strong> that this Template has been added successfully</p>
+</li>
+</ul>
+<p>Now let's attach vEdge in Branch 1 to this newly created CLI Template.</p>
+<ul>
+<li>
+<p>On the vManage GUI, <strong>Configuration &gt; Templates</strong> section:</p>
+<ul>
+<li>
+<p><strong>Click</strong> on the newly created Template named: <code>BR1-vEdge01</code></p>
+</li>
+<li>
+<p>Then <strong>Click</strong> the three dots <strong><code>...</code></strong> on the right side of this Template and  <strong>Select</strong>  <code>Attach Devices</code> option from the drop down menu as shown in the below screenshot:</p>
+<p><img alt="CLI Template" src="../pics/t3-br2-clitemplate-attach0.png" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>On the <strong>Attach Devices</strong> window: </p>
+<ul>
+<li>Under the <strong>Available Devices</strong> tab, <strong>Click</strong> on <code>BR1-vEdge01</code> (with <strong>Device IP</strong> of <code>172.16.102.1</code>)</li>
+<li><strong>Click</strong> on the <code>Right Arrow icon</code> as shown in below screenshot.   At this point the vEdge should move to the <strong>Selected Devices</strong> tab</li>
+<li><strong>Click</strong> on the <code>Attach</code> button as shown in below screenshot</li>
+</ul>
+<p><img alt="CLI Template" src="../pics/t3-br2-clitemplate-attach1.png" /></p>
+</li>
+<li>
+<p>On the next screen, <strong>Click</strong> on <code>BR1-vEdge01</code> left section and <strong>Click</strong> on <code>Config Preview</code> and <code>Config Diff</code> options on the right side of window to confirm correct configurations are pushed to this BR1-vEdge01.  </p>
+<p>Below screenshot shows "Config Preview" confirming that correct VPN 512 configs are being pushed to BR1-vEdge:</p>
+<p><img alt="CLI Template" src="../pics/t3-br2-clitemplate-attach2.png" /></p>
+</li>
+<li>
+<p>Next <strong>Click</strong> on the <code>Configure Devices</code> button on bottom of the screen.  On the subsequent screen verify that the template is attached successfully to BR1-vEdge01</p>
+</li>
+<li>
+<p>On the <strong>Mputty</strong> client with <strong>SSH</strong> session to <code>BR1-vEdge</code> verify that template is successfully attached by running below <strong>command</strong>:</p>
+</li>
+</ul>
+<pre><code>show system status
+</code></pre>
+<p>The output of above command should show that it is is centrally configured by vManage and also provides the name of Template:</p>
+<ul>
+<li><code>vManaged: true</code></li>
+<li><code>Configuration template: BR1-vEdge01</code></li>
+</ul>
+<p>Below screenshot shows the partial output of above command:
+<img alt="CLI Template" src="../pics/t3-br1-show-system-status.png" /></p>
+<h2 id="step-2-configure-vedge-in-branch-2">Step 2: Configure vEdge in Branch-2</h2>
+<p>Follows the same procedure to configure vEdge in branch 2.</p>
+<ul>
+<li>
+<p>Using <strong>MTPutty</strong> on your Remote Desktop session, initiate a <strong>SSH</strong> session to the BR1-vEdge with <strong>IP address</strong> of <strong>198.18.134.49</strong> this vEdge (<strong>BR2-vEdge01</strong>).  You can use credentials of <code>admin</code> and <code>admin</code> for  authentication.</p>
+<ul>
+<li>If prompted for "Putty Security Alert" then Trust the host by clicking "Yes" on dialog box.  </li>
+<li>The <strong>SSH credentials</strong> (username and password) are <code>admin</code> and <code>admin</code> respectively</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Important Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Be very careful in making configuration changes on vEdge.  <strong>Do NOT change</strong> any <strong>configuration</strong> of VPN 512 as it can result in loss of connectivity to the vEdge - which can not be restored.   You will have to start the lab again from Task #1 if you loose network connectivity to a vEdge.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Apply the connfig config for BR2-vEdge01</li>
+</ul>
+<pre><code>system
+ host-name               BR2-vEdge01
+ system-ip               172.16.103.1
+ site-id                 102
+ admin-tech-on-failure
+ no route-consistency-check
+ sp-organization-name    MEA_KSA_LABS
+ organization-name       MEA_KSA_LABS
+ vbond 10.0.0.10
+!
+vpn 0
+ interface ge0/0
+  ip address 10.200.203.1/30
+  tunnel-interface
+   encapsulation ipsec
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+ !
+ interface ge0/1
+  ip address 10.200.203.5/30
+  tunnel-interface
+   encapsulation ipsec
+   color private1
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  ! 
+  no shutdown
+ !
+  ip route 0.0.0.0/0 10.200.203.2
+  ip route 0.0.0.0/0 10.200.203.6
+!
+</code></pre>
+<ul>
+<li>
+<p>On the vManage GUI, navigate to <strong>Configuration &gt; Templates</strong>.  Under <strong>Devices</strong> tab click <strong>Create Template</strong> and then select <strong>CLI Template</strong> as shown in the below screenshot:</p>
+<p><img alt="CLI Template" src="../pics/t3_clitemplate.png" /></p>
+</li>
+<li>
+<p>Next, from the <strong>Device Model</strong> dropdown menu select <code>vEdge-Cloud</code></p>
+</li>
+<li>Enter <strong>Template Name</strong> of <code>BR2-vEdge01</code></li>
+<li>Enter <strong>Description</strong> of <code>Branch2 vEdge1 configs</code></li>
+<li>In the <strong>CLI Configuration</strong> section copy and paste the  below configs:</li>
+</ul>
+<pre><code>system
+ host-name               BR2-vEdge01
+ system-ip               172.16.103.1
+ site-id                 102
+ admin-tech-on-failure
+ no route-consistency-check
+ sp-organization-name    MEA_KSA_LABS
+ organization-name       MEA_KSA_LABS
+ vbond 10.0.0.10
+!
+vpn 0
+ interface ge0/0
+  ip address 10.200.203.1/30
+  tunnel-interface
+   encapsulation ipsec
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+ !
+ interface ge0/1
+  ip address 10.200.203.5/30
+  tunnel-interface
+   encapsulation ipsec
+   color private1
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   no allow-service sshd
+   no allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  ! 
+  no shutdown
+ !
+  ip route 0.0.0.0/0 10.200.203.2
+  ip route 0.0.0.0/0 10.200.203.6
+!
+vpn 512
+ interface eth0
+  ip address 198.18.134.49/18
+  ipv6 dhcp-client
+  no shutdown
+ !
+ ip route 0.0.0.0/0 198.18.128.1
+!
+
+</code></pre>
+<ul>
+<li>
+<p>Next <strong>Click</strong> the <code>Add</code> button at the bottom of page as shown in the below screenshot:</p>
+<p><img alt="BR2 Template" src="../pics/t3-br2-clitemplate.png" /></p>
+</li>
+<li>
+<p>On the next screen, <strong>verify</strong> that this Template has been added successfully</p>
+</li>
+</ul>
+<p>Now let's attach vEdge in Branch 2 to this newly created CLI Template.</p>
+<ul>
+<li>
+<p>On the vManage GUI, <strong>Configuration &gt; Templates</strong> section:</p>
+<ul>
+<li>
+<p><strong>Click</strong> on the newly created Template named: <code>CL-BR2-vEdge1</code></p>
+</li>
+<li>
+<p>Then <strong>Click</strong> the three dots <strong><code>...</code></strong> on the right side of this Template and  <strong>Select</strong>  <code>Attach Devices</code> option from the drop down menu as shown in the below screenshot:</p>
+<p><img alt="CLI Template" src="../pics/t3-br2-clitemplate-attach0.png" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>On the <strong>Attach Devices</strong> window: </p>
+<ul>
+<li>Under the <strong>Available Devices</strong> tab, <strong>Click</strong> on <code>BR2-vEdge</code> (with <strong>Device IP</strong> of <code>172.16.102.1</code>)</li>
+<li><strong>Click</strong> on the <code>Right Arrow icon</code> as shown in below screenshot.   At this point the vEdge should move to the <strong>Selected Devices</strong> tab</li>
+<li><strong>Click</strong> on the <code>Attach</code> button as shown in below screenshot</li>
+</ul>
+<p><img alt="CLI Template" src="../pics/t3-br2-clitemplate-attach1.png" /></p>
+</li>
+<li>
+<p>On the next screen, <strong>Click</strong> on <code>BR2-vEdge01</code> left section and <strong>Click</strong> on <code>Config Preview</code> and <code>Config Diff</code> options on the right side of window to confirm correct configurations are pushed to this BR2-vEdge01.  </p>
+<p>Below screenshot shows "Config Preview" confirming that correct VPN 512 configs are being pushed to BR2-vEdge:</p>
+<p><img alt="CLI Template" src="../pics/t3-br2-clitemplate-attach2.png" /></p>
+</li>
+<li>
+<p>Next <strong>Click</strong> on the <code>Configure Devices</code> button on bottom of the screen.  On the subsequent screen verify that the template is attached successfully to BR2-vEdge</p>
+</li>
+<li>
+<p>From the <strong>Mputty</strong> client initiate <strong>SSH</strong> session to <code>BR2-vEdge01</code> and verify that template is successfully attached by issuing below command:</p>
+</li>
+</ul>
+<pre><code>show system status
+</code></pre>
+<p>The output of above command should show:</p>
+<ul>
+<li><code>vManaged = true</code></li>
+<li><code>Configuration template:  BR2-vEdge01</code></li>
+</ul>
+<p>Below screenshot shows the output of above command confirming that template is attached successfully:
+<img alt="CLI Template" src="../pics/t3-br2-show-system-status.png" /></p>
+<ul>
+<li>Verify vEdge in branch-2</li>
+</ul>
+<pre><code>show interface 
+show ip route
+show control connections
+show run
+</code></pre>
+<h2 id="step-3-adding-vedge-in-data-center-dc">Step 3: Adding vEdge in Data Center (DC)</h2>
+<p>Follow the same procedure and add vEdge in DC site.</p>
+<ul>
+<li>
+<p>Using <strong>MTPutty</strong> on your Remote Desktop session, initiate a <strong>SSH</strong> session to the DC-vEdge01 with <strong>IP address</strong> of <strong>198.18.134.47</strong> this vEdge (<strong>DC-vEdge01</strong>).  You can use credentials of <code>admin</code> and <code>admin</code> for  authentication.</p>
+<ul>
+<li>If prompted for "Putty Security Alert" then Trust the host by clicking "Yes" on dialog box.  </li>
+<li>The <strong>SSH credentials</strong> (username and password) are <code>admin</code> and <code>admin</code> respectively</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Important Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Be very careful in making configuration changes on vEdge.  <strong>Do NOT change</strong> any <strong>configuration</strong> of VPN 512 as it can result in loss of connectivity to the vEdge - which can not be restored.   You will have to start the lab again from Task #1 if you loose network connectivity to a vEdge.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Apply below configs</li>
+</ul>
+<pre><code>system
+ host-name               DC-vEdge01
+ system-ip               172.16.101.1
+ site-id                 100
+ admin-tech-on-failure
+ no route-consistency-check
+ sp-organization-name    MEA_KSA_LABS
+ organization-name       MEA_KSA_LABS
+ vbond 10.0.0.10
+!
+vpn 0
+ interface ge0/0
+  ip address 10.100.103.1/30
+  ipv6 dhcp-client
+  tunnel-interface
+   encapsulation ipsec
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   allow-service sshd
+   allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+ !
+ interface ge0/1
+  ip address 10.100.103.5/30
+  tunnel-interface
+   encapsulation ipsec
+   color private1
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   allow-service sshd
+   allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+  !
+ ip route 0.0.0.0/0 10.100.103.2
+ ip route 0.0.0.0/0 10.100.103.6
+</code></pre>
+<ul>
+<li>
+<p>On the vManage GUI, navigate to <strong>Configuration &gt; Templates</strong>.  Under <strong>Devices</strong> tab click <strong>Create Template</strong> and then select <strong>CLI Template</strong> as shown in the below screenshot:</p>
+<p><img alt="CLI Template" src="../pics/t3_clitemplate.png" /></p>
+</li>
+<li>
+<p>Next, from the <strong>Device Model</strong> dropdown menu select <code>vEdge-Cloud</code></p>
+</li>
+<li>Enter <strong>Template Name</strong> of <code>DC-vEdge01</code></li>
+<li>Enter <strong>Description</strong> of <code>DC vEdge1</code></li>
+<li>In the <strong>CLI Configuration</strong> section copy and paste the below configs:</li>
+</ul>
+<pre><code>system
+ host-name               DC-vEdge01
+ system-ip               172.16.101.1
+ site-id                 100
+ admin-tech-on-failure
+ no route-consistency-check
+ sp-organization-name    MEA_KSA_LABS
+ organization-name       MEA_KSA_LABS
+ vbond 10.0.0.10
+!
+vpn 0
+ interface ge0/0
+  ip address 10.100.103.1/30
+  ipv6 dhcp-client
+  tunnel-interface
+   encapsulation ipsec
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   allow-service sshd
+   allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+ !
+ interface ge0/1
+  ip address 10.100.103.5/30
+  tunnel-interface
+   encapsulation ipsec
+   color private1
+   no allow-service bgp
+   allow-service dhcp
+   allow-service dns
+   allow-service icmp
+   allow-service sshd
+   allow-service netconf
+   no allow-service ntp
+   no allow-service ospf
+   no allow-service stun
+   allow-service https
+  !
+  no shutdown
+  !
+ ip route 0.0.0.0/0 10.100.103.2
+ ip route 0.0.0.0/0 10.100.103.6
+!
+vpn 512
+ interface eth0
+  ip address 198.18.134.47/18
+  ipv6 dhcp-client
+  no shutdown
+ !
+ ip route 0.0.0.0/0 198.18.128.1
+</code></pre>
+<ul>
+<li>
+<p>Next <strong>Click</strong> the <code>Add</code> button as shown in the below screenshot:</p>
+<p><img alt="BR2 Template" src="../pics/t3-dc-clitemplate.png" /></p>
+</li>
+<li>
+<p>On the screen, <strong>verify</strong> that this Template has been added successfully</p>
+</li>
+</ul>
+<p>Now let's attach vEdge in DC to this newly created CLI Template to appropriate.</p>
+<ul>
+<li>
+<p>On the vManage GUI, <strong>Configuration &gt; Templates</strong> section:</p>
+<ul>
+<li>
+<p><strong>Click</strong> on the newly created Template named: <code>DC-vEdge01</code></p>
+</li>
+<li>
+<p>Then <strong>Click</strong> the three dots <strong><code>...</code></strong> on the right side of this Template and  <strong>Select</strong>  <code>Attach Devices</code> option from the drop down menu as shown in the below screenshot:</p>
+<p><img alt="CLI Template" src="../pics/t3-dc-clitemplate-attach0.png" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p>On the <strong>Attach Devices</strong> window: </p>
+<ul>
+<li>Under the <strong>Available Devices</strong> tab, <strong>Click</strong> on <code>DC1-vEdge01</code> (with <strong>Device IP</strong> of <code>172.16.101.1</code>)</li>
+<li><strong>Click</strong> on the <code>Right Arrow icon</code> as shown in below screenshot.   At this point the vEdge should move to the <strong>Selected Devices</strong> tab</li>
+<li><strong>Click</strong> on the <code>Attach</code> button as shown in below screenshot</li>
+</ul>
+<p><img alt="CLI Template" src="../pics/t3-dc-clitemplate-attach1.png" /></p>
+</li>
+<li>
+<p>On the next screen, <strong>Click</strong> on <code>DC1-vEdge01</code> left section and <strong>Click</strong> on <code>Config Preview</code> and <code>Config Diff</code> options on the right side of window to confirm correct configurations are pushed to this DC1-VEDGE1.  </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Important Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Be very careful in making configuration changes on vEdge.  <strong>Do NOT change</strong> any <strong>configuration</strong> of VPN 512 as it can result in loss of connectivity to the vEdge - which can not be restored.   You will have to start the lab again from Task #1 if you loose network connectivity to a vEdge.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>Next <strong>Click</strong> on the <code>Configure Devices</code> button on bottom of the screen.  On the subsequent screen verify that the template is attached successfully to DC1-vEdge</p>
+<table>
+<thead>
+<tr>
+<th align="left">Note:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">you may get a message that Device is offline.  You can ignore this for now and proceed further</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>This concludes the process to onboard the three (3) vEdge-Cloud devices in SDWAN Fabric</p>
+<ul>
+<li>Verify Data Cente vEdge</li>
+</ul>
+<pre><code>show interface 
+show ip route
+show control connections
+show run
+</code></pre>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../Task2-Exploring%20Control%20Plane/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Task 2 Control Plane" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Task 2 Control Plane
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../Task4-Full-Mesh/" class="md-footer__link md-footer__link--next" aria-label="Next: Task 4 Full-Mesh Data Plane on internal networks" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Task 4 Full-Mesh Data Plane on internal networks
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.01de222e.min.js"></script>
+      
+    
+  </body>
+</html>
