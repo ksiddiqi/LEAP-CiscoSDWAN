@@ -894,6 +894,34 @@ vpn 0
  sp-organization-name    MEA_KSA_LABS
  organization-name       MEA_KSA_LABS
  vbond 10.0.0.10
+ aaa
+  auth-order local radius tacacs
+  usergroup basic
+   task system read write
+   task interface read write
+  !
+  usergroup netadmin
+  !
+  usergroup operator
+   task system read
+   task interface read
+   task policy read
+   task routing read
+   task security read
+  !
+  usergroup tenantadmin
+  !
+  user admin
+   password $6$2O0F6ycJx4dUOcMG$8jUXEHynLQjHvSyj32mg2V214xCVywNexoZPlt9qNxsDUY96j3Vrt1wFbjEYny9qJWFVBVXMK4Oqq1z4RahBl0
+  !
+ !
+ logging
+  disk
+   enable
+  !
+ !
+!
+
 !
 vpn 0
  interface ge0/0
@@ -1102,9 +1130,35 @@ vpn 0
  site-id                 100
  admin-tech-on-failure
  no route-consistency-check
- sp-organization-name    MEA_KSA_LABS
  organization-name       MEA_KSA_LABS
  vbond 10.0.0.10
+ aaa
+  auth-order local radius tacacs
+  usergroup basic
+   task system read write
+   task interface read write
+  !
+  usergroup netadmin
+  !
+  usergroup operator
+   task system read
+   task interface read
+   task policy read
+   task routing read
+   task security read
+  !
+  usergroup tenantadmin
+  !
+  user admin
+   password $6$3GDkmr1PdzyR1idJ$CxSVYN6B2lQu4iK67oIs/ZC9MW09qey0XfonpVFBjm1txtbNCie1IKQotl32Y.Mr.xPhZ5OJsvTVepPE/atM61
+  !
+ !
+ logging
+  disk
+   enable
+  !
+ !
+!
 !
 vpn 0
  interface ge0/0
